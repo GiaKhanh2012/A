@@ -1,0 +1,62 @@
+< !DOCTYPE html><html lang="vi"><head><meta charset="UTF-8" /><title>Shop Laptop</title><style>body {
+  background: #f9faff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  margin: 20px;
+}
+
+.product {
+  max-width: 220px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  text-align: center;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.product img {
+  width: 100%;
+  border-radius: 8px;
+  height: 140px;
+  object-fit: cover;
+}
+
+.price {
+  color: #e3b505;
+  font-weight: 700;
+  margin: 12px 0 8px 0;
+  font-size: 18px;
+}
+
+.buy-btn {
+  background: #1d3557;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+
+.buy-btn:hover {
+  background: #457b9d;
+
+}
+
+
+p {
+  font-family: "Noto Sans JP", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+</head><body><div class="product"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRo4twDEKFWTXMVQ7ZQEoEM-jrR7j1mtwVqNYCM3XZBpZCA6VhtOVcry2zsRrqXVzBWoj4R0V3NhkJRsUjd0bx5ZIPn9ic3q9tv57hGoa6NBw" alt="Laptop 1" /><div class="price">40,
+000,
+000đ</div><button class="buy-btn">MUA NGAY</button></div><div class="product"><img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSQ7XVIiEgUYe5QKuZiZqeOvboBONYXmrRtmC74DacGU1mlYkpkAFID-Wj_qcKNUVWpmnK4PswCpVjtR3bdAddtISJ7wMcTZWa3abILBHxDhA" alt="Laptop 2" /><div class="price">24,
+000,
+000đ</div><button class="buy-btn">MUA NGAY</button></div></body></html>
