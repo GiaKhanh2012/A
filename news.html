@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trang Đăng nhập & Tin tức</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f0f0;
+        }
+
+        #authPage,
+        #newsPage,
+        #detailPage {
+            display: none;
+            padding: 20px;
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #aaa;
+        }
+
+        #authPage {
+            display: block;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            font-size: 1em;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            background: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .switch-link {
+            margin-top: 10px;
+            text-align: center;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .news-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .news-item:last-child {
+            border: none;
+        }
+
+        .news-title {
+            font-weight: bold;
+            cursor: pointer;
+            color: #007bff;
+        }
+
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            cursor: pointer;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="authPage">
+        <h2>Đăng nhập</h2>
+        <form id="loginForm">
+            <input type="text" placeholder="Tên đăng nhập" required>
+            <input type="password" placeholder="Mật khẩu" required>
+            <button type="submit">Đăng nhập</button>
+        </form>
+        <div class="switch-link" id="goRegister">Chưa có tài khoản? Đăng ký</div>
+
+        <h2 style="margin-top:30px;" id="registerTitle" hidden>Đăng ký</h2>
+        <form id="registerForm" hidden>
+            <input type="text" placeholder="Tên đăng nhập mới" required>
+            <input type="password" placeholder="Mật khẩu" required>
+            <input type="password" placeholder="Nhập lại mật khẩu" required>
+            <button type="submit">Đăng ký</button>
+        </form>
+        <div class="switch-link" id="goLogin" hidden>Đã có tài khoản? Đăng nhập</div>
+    </div>
+
+    <div id="newsPage">
+        <h2>Trang Tin Tức</h2>
+        <div id="newsList"></div>
+    </div>
+
+    <div id="detailPage">
+        <h2 id="detailTitle"></h2>
+        <p id="detailContent"></p>
+        <div class="back-link" id="backToNews">← Quay lại danh sách tin tức</div>
+    </div>
+
+    <script>
+        const authPage = document.getElementById('authPage');
+        const newsPage = document.getElementById('newsPage');
+        const detailPage = document.getElementById('detailPage');
+
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const goRegister = document.getElementById('goRegister');
+        const goLogin = document.getElementById('goLogin');
+        const registerTitle = document.getElementById('registerTitle');
+
+        const newsList = document.getElementById('newsList');
+        const detailTitle = document.getElementById('detailTitle');
+        const detailContent = document.getElementById('detailContent');
+        const backToNews = document.getElementById('backToNews');
+
+        const articles = [
+            { id: 1, title: "Tin tức 1", summary: "Tóm tắt tin tức 1", content: "Nội dung chi tiết tin tức 1." },
+            { id: 2, title: "Tin tức 2", summary: "Tóm tắt tin tức 2", content: "Nội dung chi tiết tin tức 2." },
+            { id: 3, title: "Tin tức 3", summary: "Tóm tắt tin tức 3", content: "Nội dung chi tiết tin tức 3." },
+            { id: 4, title: "Tin tức 4", summary: "Tóm tắt tin tức 4", content: "Nội dung chi tiết tin tức 4." },
+            { id: 5, title: "Tin tức 5", summary: "Tóm tắt tin tức 5", content: "Nội dung chi tiết tin tức 5." },
+            { id: 6, title: "Tin tức 6", summary: "Tóm tắt tin tức 6", content: "Nội dung chi tiết tin tức 6." }
+        ];
+
+        function showLogin() {
+            registerForm.hidden = true;
+            registerTitle.hidden = true;
+            goLogin.hidden = true;
+            loginForm.style.display = 'block';
+            goRegister.style.display = 'block';
+        }
+        function showRegister() {
+            registerForm.hidden = false;
+            registerTitle.hidden = false;
+            goLogin.hidden = false;
+            loginForm.style.display = 'none';
+            goRegister.style.display = 'none';
+        }
+
+        goRegister.onclick = () => {
+            showRegister();
+        };
+        goLogin.onclick = () => {
+            showLogin();
+        };
+
+        loginForm.addEventListener('submit', e => {
+            e.preventDefault();
+            alert('Đăng nhập thành công!');
+            authPage.style.display = 'none';
+            newsPage.style.display = 'block';
+            renderNewsList();
+        });
+
+        registerForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const inputs = registerForm.querySelectorAll('input');
+            if (inputs[1].value !== inputs[2].value) {
+                alert('Mật khẩu nhập lại không khớp!');
+                return;
+            }
+            alert('Đăng ký thành công! Vui lòng đăng nhập.');
+            showLogin();
+        });
+
+        function renderNewsList() {
+            newsList.innerHTML = '';
+            articles.forEach(article => {
+                const div = document.createElement('div');
+                div.className = 'news-item';
+                div.innerHTML = `<div class="news-title">${article.title}</div><div>${article.summary}</div>`;
+                div.onclick = () => {
+                    showDetail(article.id);
+                };
+                newsList.appendChild(div);
+            });
+        }
+
+        function showDetail(id) {
+            const article = articles.find(a => a.id === id);
+            if (!article) return;
+            detailTitle.textContent = article.title;
+            detailContent.textContent = article.content;
+            newsPage.style.display = 'none';
+            detailPage.style.display = 'block';
+        }
+
+        backToNews.onclick = () => {
+            detailPage.style.display = 'none';
+            newsPage.style.display = 'block';
+        }
+    </script>
+
+</body>
+
+</html>
